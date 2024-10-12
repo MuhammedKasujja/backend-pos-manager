@@ -1,0 +1,31 @@
+<?php
+
+use App\Models\Account;
+use App\Models\Contact;
+use App\Models\Organization;
+
+class AccountService
+{
+    public function create($data): Account
+    {
+        $account =  Account::first();
+
+        $org = new Organization();
+        $org->name = $data['company']['name'];
+        $org->phone = $data['company']['phone'];
+        $org->email = $data['company']['email'];
+        $org->account_id = $account->id;
+        $org->save();
+
+        $contact = new Contact();
+        $contact->first_name = $data['user']['first_name'];
+        $contact->last_name = $data['user']['last_name'];
+        $contact->phone = $data['user']['phone'];
+        $contact->email = $data['user']['email'];
+        $contact->account_id = $account->id;
+        $contact->organization_id = $org->id;
+        $contact->save();
+
+        return $account;
+    }
+}
