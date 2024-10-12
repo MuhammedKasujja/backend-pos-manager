@@ -14,8 +14,15 @@ class CreateAccountRequest extends Request
     public function rules(): array
     {
         return [
-            "company_name" => "string|required",
-            "company_email" => "string|max:100"
+            "company.name" => "string|required",
+            "company.email" => "string|required|email",
+            "company.phone" => "string|required",
+            ///
+            "user.first_name" => "string|required",
+            "user.last_name" => "string|required",
+            "user.email" => "string|required|email",
+            "user.password" => "string|required",
+            "user.phone" => "string|required"
         ];
     }
 
